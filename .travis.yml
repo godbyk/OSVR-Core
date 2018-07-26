@@ -47,6 +47,8 @@ cache:
 
 before_install:
   - eval "${MATRIX_EVAL}"
+  - update-alternatives --install /usr/bin/gcc gcc /usr/bin/${CC} 60 --slave /usr/bin/g++ g++ /usr/bin/${CXX}
+  - update-alternatives --auto gcc
   - $CC -v
   - if [ $TRAVIS_OS_NAME = 'linux' ]; then export INSTPRF=$HOME/p; mkdir -p $INSTPRF; fi
   - if [ $TRAVIS_OS_NAME = 'linux' ]; then export OPENCV_VER=3.0.0; fi
@@ -162,4 +164,5 @@ addons:
     - g++-6
     - g++-7
     - g++-8
+    - software-properties-common
 
