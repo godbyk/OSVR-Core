@@ -17,10 +17,28 @@ matrix:
     env: CONFIG=Debug
   - os: linux
     compiler: gcc
-    env: CONFIG=Release
+    env: CONFIG=Release CC=gcc-5 CXX=g++-5
   - os: linux
     compiler: gcc
-    env: CONFIG=Debug
+    env: CONFIG=Debug CC=gcc-5 CXX=g++-5
+  - os: linux
+    compiler: gcc
+    env: CONFIG=Release CC=gcc-6 CXX=g++-6
+  - os: linux
+    compiler: gcc
+    env: CONFIG=Debug CC=gcc-6 CXX=g++-6
+  - os: linux
+    compiler: gcc
+    env: CONFIG=Release CC=gcc-7 CXX=g++-7
+  - os: linux
+    compiler: gcc
+    env: CONFIG=Debug CC=gcc-7 CXX=g++-7
+  - os: linux
+    compiler: gcc
+    env: CONFIG=Release CC=gcc-8 CXX=g++-8
+  - os: linux
+    compiler: gcc
+    env: CONFIG=Debug CC=gcc-8 CXX=g++-8
 cache:
   directories:
     $HOME/deps-rel
@@ -75,22 +93,23 @@ install:
       pushd $DEPSDIR;
         mkdir -p libfunctionality/build;
         pushd libfunctionality/build;
-          cmake .. -DCMAKE_INSTALL_PREFIX=$INSTPRF -DCMAKE_BUILD_TYPE=${CONFIG};
+          cmake .. -DCMAKE_INSTALL_PREFIX=$INSTPRF -DCMAKE_BUILD_TYPE=${CONFIG} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC};
           make -j2 install;
         popd;
         mkdir -p jsoncpp/build;
         pushd jsoncpp/build;
-          cmake .. -DCMAKE_INSTALL_PREFIX=$INSTPRF -DCMAKE_BUILD_TYPE=${CONFIG} -DBUILD_STATIC_LIBS=OFF -DBUILD_SHARED_LIBS=ON -DJSONCPP_WITH_CMAKE_PACKAGE=ON;
+          cmake .. -DCMAKE_INSTALL_PREFIX=$INSTPRF -DCMAKE_BUILD_TYPE=${CONFIG} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC} -DBUILD_STATIC_LIBS=OFF -DBUILD_SHARED_LIBS=ON -DJSONCPP_WITH_CMAKE_PACKAGE=ON;
           make -j2 install;
         popd;
         mkdir -p libuvc/build;
-	pushd libuvc/build;
-	  cmake .. -DCMAKE_INSTALL_PREFIX=$INSTPRF -DCMAKE_BUILD_TYPE=${CONFIG} -DINSTALL_CMAKE_DIR=$INSTPRF/lib/cmake/libuvc;
-	  make -j2 install;
-	popd;
+        pushd libuvc/build;
+          cmake .. -DCMAKE_INSTALL_PREFIX=$INSTPRF -DCMAKE_BUILD_TYPE=${CONFIG} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC} -DINSTALL_CMAKE_DIR=$INSTPRF/lib/cmake/libuvc;
+          make -j2 install;
+        popd;
         mkdir -p opencv-${OPENCV_VER}/build;
         pushd opencv-${OPENCV_VER}/build;
           cmake .. -DCMAKE_INSTALL_PREFIX=$INSTPRF -DCMAKE_BUILD_TYPE=${CONFIG} \
+            -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC} \
             -DWITH_1394=OFF -DWITH_FFMPEG=OFF -DWITH_IPP=OFF -DWITH_WEBP=OFF \
             -DBUILD_DOCS=OFF -DBUILD_PERF_TESTS=OFF -DBUILD_TESTS=OFF \
             -DBUILD_opencv_apps=OFF -DBUILD_opencv_java=OFF -DBUILD_opencv_python2=OFF \
@@ -104,7 +123,7 @@ script:
   - "mkdir build;"
   - "cd build;"
   - "if [ $TRAVIS_OS_NAME = 'osx' ]; then cmake .. -DCMAKE_BUILD_TYPE=${CONFIG} -DCMAKE_OSX_ARCHITECTURES=x86_64 -DBUILD_WITH_OPENCV=OFF; fi"
-  - "if [ $TRAVIS_OS_NAME = 'linux' ]; then cmake .. -DCMAKE_PREFIX_PATH=$INSTPRF -DCMAKE_BUILD_TYPE=${CONFIG}; fi"
+  - "if [ $TRAVIS_OS_NAME = 'linux' ]; then cmake .. -DCMAKE_PREFIX_PATH=$INSTPRF -DCMAKE_BUILD_TYPE=${CONFIG} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC}; fi"
   - "make all -j2"
 # TODO need to sort out false-failures due to container/platform issues.
 #  - "ctest -V"
@@ -133,5 +152,11 @@ addons:
     - cmake-data
     - cmake
     - gcc-5
+    - gcc-6
+    - gcc-7
+    - gcc-8
     - g++-5
+    - g++-6
+    - g++-7
+    - g++-8
     - clang-3.7
