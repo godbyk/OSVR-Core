@@ -17,83 +17,27 @@ matrix:
     env: CONFIG=Debug
   - os: linux
     compiler: gcc
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - gcc-5
-          - g++-5
     env: CONFIG=Release MATRIX_EVAL="export CC=gcc-5 && export CXX=g++-5"
   - os: linux
     compiler: gcc
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - gcc-5
-          - g++-5
     env: CONFIG=Debug MATRIX_EVAL="export CC=gcc-5 && export CXX=g++-5"
   - os: linux
     compiler: gcc
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - gcc-6
-          - g++-6
     env: CONFIG=Release MATRIX_EVAL="export CC=gcc-6 && export CXX=g++-6"
   - os: linux
     compiler: gcc
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - gcc-6
-          - g++-6
     env: CONFIG=Debug MATRIX_EVAL="export CC=gcc-6 && export CXX=g++-6"
   - os: linux
     compiler: gcc
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - gcc-7
-          - g++-7
     env: CONFIG=Release MATRIX_EVAL="export CC=gcc-7 && export CXX=g++-7"
   - os: linux
     compiler: gcc
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - gcc-7
-          - g++-7
     env: CONFIG=Debug MATRIX_EVAL="export CC=gcc-7 && export CXX=g++-7"
   - os: linux
     compiler: gcc
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - gcc-8
-          - g++-8
     env: CONFIG=Release MATRIX_EVAL="export CC=gcc-8 && export CXX=g++-8"
   - os: linux
     compiler: gcc
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - gcc-8
-          - g++-8
     env: CONFIG=Debug MATRIX_EVAL="export CC=gcc-8 && export CXX=g++-8"
 
 cache:
@@ -210,3 +154,12 @@ addons:
     - cmake-data
     - cmake
     - clang-3.7
+    - gcc-5
+    - gcc-6
+    - gcc-7
+    - gcc-8
+    - g++-5
+    - g++-6
+    - g++-7
+    - g++-8
+
