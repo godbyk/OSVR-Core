@@ -47,8 +47,8 @@ cache:
 
 before_install:
   - eval "${MATRIX_EVAL}"
-  - update-alternatives --install /usr/bin/gcc gcc /usr/bin/${CC} 60 --slave /usr/bin/g++ g++ /usr/bin/${CXX}
-  - update-alternatives --auto gcc
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/${CC} 60 --slave /usr/bin/g++ g++ /usr/bin/${CXX}
+  - sudo update-alternatives --auto gcc
   - $CC -v
   - if [ $TRAVIS_OS_NAME = 'linux' ]; then export INSTPRF=$HOME/p; mkdir -p $INSTPRF; fi
   - if [ $TRAVIS_OS_NAME = 'linux' ]; then export OPENCV_VER=3.0.0; fi
@@ -93,6 +93,7 @@ before_install:
         fi;
       popd;
     fi"
+
 install:
   - "if [ $TRAVIS_OS_NAME = 'linux' ]; then
       pushd $DEPSDIR;
@@ -122,6 +123,7 @@ install:
         popd;
       popd;
     fi"
+
 script:
   - "git submodule update --init --recursive;"
   - "mkdir build;"
@@ -131,7 +133,9 @@ script:
   - "make all -j2"
 # TODO need to sort out false-failures due to container/platform issues.
 #  - "ctest -V"
-sudo: false
+
+sudo: required
+
 addons:
   apt:
     # Details and approved sources are
