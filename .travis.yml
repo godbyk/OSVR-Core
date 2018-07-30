@@ -162,6 +162,7 @@ addons:
     - cmake
     - clang-3.7
     - software-properties-common
+    - libc6-dev
     #- gcc-5
     #- gcc-6
     #- gcc-7
