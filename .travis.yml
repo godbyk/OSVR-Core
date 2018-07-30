@@ -118,6 +118,7 @@ install:
           cmake .. -DCMAKE_INSTALL_PREFIX=$INSTPRF -DCMAKE_BUILD_TYPE=${CONFIG} \
             -DWITH_1394=OFF -DWITH_FFMPEG=OFF -DWITH_IPP=OFF -DWITH_WEBP=OFF \
             -DBUILD_DOCS=OFF -DBUILD_PERF_TESTS=OFF -DBUILD_TESTS=OFF \
+            -DENABLE_PRECOMPILED_HEADERS=OFF \
             -DBUILD_opencv_apps=OFF -DBUILD_opencv_java=OFF -DBUILD_opencv_python2=OFF \
             -DBUILD_opencv_ts=OFF;
           make -j2 install;
