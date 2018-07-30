@@ -47,6 +47,7 @@ cache:
 
 before_install:
   - eval "${MATRIX_EVAL}"
+  - sudo apt-get install -yq ${CC} ${CXX}
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/${CC} 60 --slave /usr/bin/g++ g++ /usr/bin/${CXX}
   - sudo update-alternatives --auto gcc
   - $CC -v
@@ -160,13 +161,13 @@ addons:
     - cmake-data
     - cmake
     - clang-3.7
-    - gcc-5
-    - gcc-6
-    - gcc-7
-    - gcc-8
-    - g++-5
-    - g++-6
-    - g++-7
-    - g++-8
     - software-properties-common
+    #- gcc-5
+    #- gcc-6
+    #- gcc-7
+    #- gcc-8
+    #- g++-5
+    #- g++-6
+    #- g++-7
+    #- g++-8
 
